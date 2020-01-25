@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John",
+      "lastName": "Doe",
+      "age": 20,
+      "image": null,
+      "email": "john_doe00@gmail.com"
+    },
+    {
+      "id": "2",
+      "name": "Max",
+      "lastName": "Doe",
+      "age": 22,
+      "image": null,
+      "email": "maxdoe01@gmail.com"
+    },
+    {
+      "id": "3",
+      "name": "Samantha",
+      "lastName": "Doe",
+      "age": 21,
+      "image": null,
+      "email": "sam_doee@gmail.com"
+    }
+  ]
+}
