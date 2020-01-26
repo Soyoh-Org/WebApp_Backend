@@ -4,14 +4,15 @@ import pymongo
 
 key = os.environ['ENCRYPTION_KEY']
 f = Fernet(key)
-mongodb_pwd = f.decrypt(b'gAAAAABeLR1H3kdgWujknAuTDqPBtv8UMaseRn0FM2MNQrBTQ8Wgbx_'
-                        b'3IqcnsIT76tim45DidkzWyG3vmbCqkhJ0pKwKELgC30xE0Wxn_PK45Z4erUX6h7Q=').decode()
-mongodb_server = f.decrypt(b'gAAAAABeLSCzIkJvoqsc5J01Bl_JCEcriPJ7ZA0eX9uaKf5k7Si-2qw0euNpsJx'
-                           b'86vIZ6pGw2BlT_F4qGEjQKfzMXiVcPE-rcNV6kaqd17iC4lDKxjPI2i0=').decode()
-client = pymongo.MongoClient("mongodb+srv://root:{0}@{1}/test?retryWrites=true&w=majority".
-                             format(mongodb_pwd, mongodb_server))
-db = client.test
-collection = db.test
 
-for x in collection.find():
-    print(x['name'])
+
+db_creds = f.decrypt(b'gAAAAABeLd-DheaVqD_15wWvY6__IVbOqL_8AET6_owd8DlNrEqliZWi9fv5pw9HiSV_'
+                        b'mm3PRDNBvoVNvAazEa8ahssinIPxY6aR8yvF36oyta4X7cueLGw=').decode()
+db_server = f.decrypt(b'gAAAAABeLd_utpFYHTz2knY4ryz4ZdbUt8fWpL8W063HyZ2lWVWdKKp4QZlxw1wsGPpm'
+                           b'6E3Sh2hljfxdAh9Yx7mVyOmNtxGC_Dxg-VUphjxVk73tiz7YIFo=').decode()
+db_name = 'test'
+print('Attempting to connect to Server...')
+client = pymongo.MongoClient("mongodb+srv://{0}@{1}/{2}?retryWrites=true&w=majority".
+                             format(db_creds, db_server, db_name))
+print('Connection was successfully established!')
+Session = client.test

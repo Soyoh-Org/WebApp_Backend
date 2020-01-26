@@ -1,7 +1,10 @@
 from flask import request, Flask, jsonify
+from pathlib import Path
+from bson import json_util
+from dbclient import Session
+from collections import namedtuple
 import logging
 import json
-from pathlib import Path
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -16,8 +19,12 @@ def home():
 
 @app.route('/users', methods=['GET'])
 def users():
-    users_data = read_json_file()
-    return users_data
+    employee_collection = Session.employees
+    employees = []
+    for item in employee_collection.find():
+        employees.append(json.loads(json.dumps(item, indent=4, default=json_util.default)))
+
+    return jsonify(employees)
 
 
 @app.route('/user', methods=['GET', 'POST', 'DELETE'])
